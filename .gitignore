@@ -171,3 +171,4 @@ cython_debug/
 worker/
 src-tauri/bin/
 src-tauri/Cargo.lock
+/data/

@@ -59,7 +59,7 @@ export function ResultDrawer({ show, onClose, result, loading, streaming }: Resu
         <div className="flex items-center justify-between border-b p-4 md:p-6 bg-card">
           <div className="flex items-center gap-2 md:gap-3">
             <Sparkles className="h-4 w-4 md:h-5 md:w-5 text-primary" />
-            <h3 className="text-lg md:text-xl font-semibold">占卜结果</h3>
+            <h3 className="text-lg md:text-xl font-semibold">占卜結果</h3>
           </div>
           <Button
             variant="ghost"
@@ -84,7 +84,7 @@ export function ResultDrawer({ show, onClose, result, loading, streaming }: Resu
               <div className="text-center space-y-2">
                 <p className="text-base md:text-lg font-medium">正在占卜中...</p>
                 <p className="text-xs md:text-sm text-muted-foreground">
-                  请稍候，AI 正在为您解读
+                  請稍候，AI 正在為您解讀
                 </p>
               </div>
             </div>

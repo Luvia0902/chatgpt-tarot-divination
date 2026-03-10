@@ -35,17 +35,19 @@ export default function HistoryPage() {
     if (type) {
       deleteHistoryItem(id, type)
       loadHistory()
-      toast.success('已删除')
+      setHistory(getHistoryByType(type))
+      loadHistory()
+      toast.success('已刪除')
     }
   }
 
   const handleClearAll = () => {
-    if (confirm('确定要清空所有历史记录吗？') && type) {
-      // 清空该类型的所有记录
+    if (confirm('確定要清空所有歷史記錄嗎？') && type) {
+      // 清空該類型的所有記錄
       const allHistory = getHistoryByType(type)
       allHistory.forEach(item => deleteHistoryItem(item.id, type))
       loadHistory()
-      toast.success('已清空所有历史记录')
+      toast.success('已清空所有歷史記錄')
     }
   }
 
@@ -68,10 +70,10 @@ export default function HistoryPage() {
     const hours = Math.floor(diff / 3600000)
     const days = Math.floor(diff / 86400000)
 
-    if (minutes < 1) return '刚刚'
-    if (minutes < 60) return `${minutes}分钟前`
-    if (hours < 24) return `${hours}小时前`
-    if (days < 7) return `${days}天前`
+    if (minutes < 1) return '剛剛'
+    if (minutes < 60) return `${minutes} 分鐘前`
+    if (hours < 24) return `${hours} 小時前`
+    if (days < 7) return `${days} 天前`
 
     return date.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
   }
@@ -93,10 +95,10 @@ export default function HistoryPage() {
         {/* 标题区域 */}
         <CardHeader className="p-4 md:p-6 pb-3 md:pb-4 text-center">
           <CardTitle className="text-xl md:text-2xl bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            {divinationConfig?.title || '历史记录'}
+            {divinationConfig?.title || '歷史記錄'}
           </CardTitle>
           <p className="text-sm text-muted-foreground mt-2">
-            最近 {history.length} 条占卜记录
+            最近 {history.length} 條占卜記錄
           </p>
         </CardHeader>
 
@@ -119,8 +121,8 @@ export default function HistoryPage() {
           {history.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <Calendar className="h-16 w-16 mx-auto mb-4 opacity-50" />
-              <p>暂无历史记录</p>
-              <p className="text-sm mt-2">开始占卜后会自动保存记录</p>
+              <p>暫無歷史記錄</p>
+              <p className="text-sm mt-2">開始占卜後會自動保存記錄</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -165,7 +167,7 @@ export default function HistoryPage() {
         </CardContent>
       </Card>
 
-      {/* 结果抽屉 */}
+      {/* 結果抽屜 */}
       {selectedItem && (
         <ResultDrawer
           show={showDrawer}

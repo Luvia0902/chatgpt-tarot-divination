@@ -1,133 +1,143 @@
 # AI 占卜 - ChatGPT Tarot Divination
 
-基于 ChatGPT 的 AI 算命、占卜应用，支持多种占卜方式，提供流式输出体验和历史记录管理。
+基於 ChatGPT 的 AI 算命、占卜應用程式，支援多種占卜方式，提供串流輸出體驗與歷史紀錄管理。
 
 ![demo](assets/demo.png)
 
 ## 功能列表
 
-- [x] **塔罗牌占卜** - 通过塔罗牌探索内心，洞察未来可能性
-- [x] **生辰八字** - 根据出生时间分析命理运势
-- [x] **姓名五格** - 通过姓名笔画分析性格和命运
-- [x] **周公解梦** - 解析梦境含义，探索潜意识
-- [x] **起名取名** - 根据生辰八字和五行推荐吉祥名字
-- [x] **梅花易数** - 传统易学占卜方法
-- [x] **姻缘占卜** - 分析感情运势和姻缘走向 [@alongLFB](https://github.com/alongLFB)
+- [x] **塔羅牌占卜** - 透過塔羅牌探索內心，洞察未來可能性
+- [x] **獨角獸療癒牌卡** - 以充滿愛與智慧的獨角獸能量給予溫暖指引
+- [x] **生辰八字** - 根據出生時間分析命理運勢
+- [x] **姓名五格** - 透過姓名筆畫分析性格和命運
+- [x] **周公解夢** - 解析夢境含義，探索潛意識
+- [x] **命名取名** - 根據生辰八字和五行推薦吉祥名字
+- [x] **梅花易數** - 傳統易學占卜方法
+- [x] **姻緣占卜** - 分析感情運勢和姻緣走向 [@alongLFB](https://github.com/alongLFB)
 
 **特色功能**：
-- 🌊 流式输出 - AI 占卜结果以打字机效果实时呈现
-- 📚 历史记录 - 每种占卜类型自动保存最近 10 条记录
-- 📱 响应式设计 - 完美适配手机、平板、电脑
-- 🌙 暗色模式 - 支持明暗主题切换
+- 🌊 串流輸出 - AI 占卜結果以打字機效果即時呈現
+- 📚 歷史紀錄 - 每種占卜類型自動儲存最近 10 筆紀錄
+- 📱 響應式設計 - 完美相容手機、平板、電腦
+- 🌙 深色模式 - 支援淺色/深色主題切換
 
 ---
 
-## 四种部署方式
+## 四種部署方式
 
-### 方式一：Vercel 一键部署（推荐）⭐
+### 方式一：Vercel 一鍵部署（推薦）⭐
 
-最简单快捷的部署方式，无需服务器，完全免费。
+最簡單快捷的部署方式，無需伺服器，完全免費。
 
-1. 点击下方按钮开始部署：
+1. 點擊下方按鈕開始部署：
 
-   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdreamhunter2333%2Fchatgpt-tarot-divination&env=api_key,api_base&project-name=ai-divination&repository-name=ai-divination&demo-title=AI%20Divination&demo-description=AI%20Divination&demo-url=https%3A%2F%2Fdivination.app.awsl.uk)
+   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FLuvia0902%2Fchatgpt-tarot-divination&env=api_key,api_base&project-name=ai-divination&repository-name=ai-divination&demo-title=AI%20Divination&demo-description=AI%20Divination)
 
-2. 在部署时配置环境变量：
+2. 在部署時設定環境變數：
    - `api_key`：必填，你的 OpenAI API Key
-   - `api_base`：可选，API 地址（默认为 OpenAI 官方地址）
-   - 其他可选参数：`model`、`github_client_id`、`github_client_secret` 等
+   - `api_base`：選填，API 網址（預設為 OpenAI 官方網址）
+   - 其他選填參數：`model`、`github_client_id`、`github_client_secret` 等
 
-3. 部署完成后，Vercel 会自动分配一个访问域名
+3. 部署完成後，Vercel 會自動分配一個專屬網域
 
-4. 也可以绑定自己的域名
+4. 也可以自行綁定個人網域
 
-### 方式二：下载 EXE 安装包（Windows 用户）
+### 方式二：下載 EXE 安裝檔（Windows 使用者）
 
-1. [点击下载 EXE 安装包](https://github.com/dreamhunter2333/chatgpt-tarot-divination/releases/tag/latest)
-2. 安装并运行程序
-3. 在设置中配置：
-   - API BASE URL（OpenAI API 地址）
-   - API KEY（你的 API 密钥）
-4. 返回主页即可开始使用
+1. [點擊下載 EXE 安裝檔](https://github.com/Luvia0902/chatgpt-tarot-divination/releases/tag/latest)
+2. 安裝並執行程式
+3. 在設定中配置：
+   - API BASE URL（OpenAI API 網址）
+   - API KEY（你的 API 金鑰）
+4. 返回首頁即可開始使用
 
 ### 方式三：Docker 部署
 
-创建 `docker-compose.yml` 文件：
+建立 `docker-compose.yml` 檔案：
 
 ```yaml
 services:
   chatgpt-tarot-divination:
-    image: ghcr.io/dreamhunter2333/chatgpt-tarot-divination:latest
+    image: ghcr.io/Luvia0902/chatgpt-tarot-divination:latest
     container_name: chatgpt-tarot-divination
     restart: always
     ports:
       - 8000:8000
     environment:
-      - api_key=sk-xxx                    # 必填：OpenAI API Key
-      # - api_base=https://api.openai.com/v1  # 可选：API 地址
-      # - model=gpt-3.5-turbo              # 可选：模型名称
-      # - rate_limit=10/minute             # 可选：速率限制
-      # - user_rate_limit=600/hour         # 可选：用户速率限制
-      - github_client_id=xxx               # 可选：GitHub OAuth
-      - github_client_secret=xxx           # 可选：GitHub OAuth
-      - jwt_secret=secret                  # 可选：JWT 密钥
-      - ad_client=ca-pub-xxx               # 可选：广告客户端
-      - ad_slot=123                        # 可选：广告位
+      - api_key=sk-xxx                       # 必填：OpenAI API Key
+      # - api_base=https://api.openai.com/v1 # 選填：API 網址
+      # - model=gpt-3.5-turbo                # 選填：模型名稱
+      # - rate_limit=10/minute               # 選填：速率限制
+      # - user_rate_limit=600/hour           # 選填：使用者速率限制
+      - github_client_id=xxx                 # 選填：GitHub OAuth
+      - github_client_secret=xxx             # 選填：GitHub OAuth
+      - jwt_secret=secret                    # 選填：JWT 金鑰
+      - ad_client=ca-pub-xxx                 # 選填：廣告客戶端
+      - ad_slot=123                          # 選填：廣告版位
 ```
 
-启动服务：
+啟動服務：
 
 ```bash
 docker-compose up -d
 ```
 
-访问 `http://localhost:8000` 即可使用。
+瀏覽 `http://localhost:8000` 即可使用。
 
-### 方式四：本地运行（开发者）
+### 方式四：本機執行（開發者）
 
-**前置要求**：
+**前置需求**：
 - Node.js 16+
 - Python 3.8+
 - pnpm
 
-**步骤**：
+**步驟**：
 
-1. **创建配置文件** - 在项目根目录创建 `.env` 文件：
+1. **建立設定檔** - 在專案根目錄建立 `.env` 檔案：
 
 ```bash
 api_key=sk-xxxx                         # 必填：OpenAI API Key
-api_base=https://api.openai.com/v1      # 可选：API 地址
-github_client_id=xxx                     # 可选：GitHub OAuth
-github_client_secret=xxx                 # 可选：GitHub OAuth
-ad_client=ca-pub-xxx                     # 可选：广告客户端
-ad_slot=123                              # 可选：广告位
+api_base=https://api.openai.com/v1      # 選填：API 網址
+github_client_id=xxx                    # 選填：GitHub OAuth
+github_client_secret=xxx                # 選填：GitHub OAuth
+ad_client=ca-pub-xxx                    # 選填：廣告客戶端
+ad_slot=123                             # 選填：廣告版位
 ```
 
-2. **构建前端**：
+2. **建置前端**：
 
-```bash
+```pwsh
 cd frontend
 pnpm install
 pnpm build --emptyOutDir
 cd ..
 ```
 
-3. **部署前端文件**：
+3. **部署前端檔案**：
 
-```bash
-rm -r dist
-cp -r frontend/dist/ dist
+```pwsh
+# 支援 Windows PowerShell (pwsh 7+) 與一般 bash 環境的不同寫法
+
+# Windows PowerShell:
+Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue
+New-Item -ItemType Directory -Force -Path dist | Out-Null
+Copy-Item -Path "frontend/dist/*" -Destination "dist" -Recurse
+
+# Linux / macOS (Bash):
+# rm -rf dist
+# cp -r frontend/dist/ dist
 ```
 
-4. **安装并运行后端**：
+4. **安裝並啟動後端** (Windows PowerShell 環境)：
 
-```bash
-python3 -m venv ./venv
-./venv/bin/python3 -m pip install -r requirements.txt
-./venv/bin/python3 main.py
+```pwsh
+python -m venv ./venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python main.py
 ```
 
-5. **访问应用** - 打开浏览器访问 `http://localhost:8000`
+5. **瀏覽應用程式** - 打開瀏覽器瀏覽 `http://localhost:8000`
 
 ---
 

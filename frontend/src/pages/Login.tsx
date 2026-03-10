@@ -50,7 +50,7 @@ export default function LoginPage() {
       window.location.href = '/'
     } catch (err: any) {
       console.error(err)
-      setError(`登录失败: ${err.message || '未知错误'}`)
+      setError(`登入失敗: ${err.message || '未知錯誤'}`)
     } finally {
       setLoading(false)
     }
@@ -76,7 +76,7 @@ export default function LoginPage() {
       window.location.href = redirectUrl
     } catch (err: any) {
       console.error(err)
-      setError(err.message || '登录失败')
+      setError(err.message || '登入失敗')
     } finally {
       setLoading(false)
     }
@@ -91,8 +91,8 @@ export default function LoginPage() {
               <LogIn className="h-6 w-6 md:h-8 md:w-8 text-primary" />
             </div>
           </div>
-          <CardTitle className="text-xl md:text-2xl">登录账户</CardTitle>
-          <CardDescription className="text-xs md:text-sm">使用 GitHub 账户快速登录</CardDescription>
+          <CardTitle className="text-xl md:text-2xl">登入帳戶</CardTitle>
+          <CardDescription className="text-xs md:text-sm">使用 GitHub 帳戶快速登入</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4 p-4 md:p-6">
           {loading && (
@@ -101,7 +101,7 @@ export default function LoginPage() {
                 <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary/20 border-t-primary"></div>
                 <Github className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-7 w-7 text-primary animate-pulse" />
               </div>
-              <p className="text-sm font-medium text-muted-foreground">正在登录...</p>
+              <p className="text-sm font-medium text-muted-foreground">正在登錄...</p>
             </div>
           )}
 
@@ -120,7 +120,7 @@ export default function LoginPage() {
                 size="lg"
               >
                 <Github className="h-5 w-5" />
-                使用 GitHub 登录
+                使用 GitHub 登入
               </Button>
 
               <Button
@@ -129,7 +129,7 @@ export default function LoginPage() {
                 className="w-full h-11 gap-2"
               >
                 <ArrowLeft className="h-4 w-4" />
-                返回主页
+                返回主頁
               </Button>
             </>
           )}

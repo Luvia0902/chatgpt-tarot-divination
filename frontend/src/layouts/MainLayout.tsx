@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Github, LogIn, LogOut, Moon, Settings, Sparkles, Sun, Home } from 'lucide-react'
+import { LogIn, LogOut, Sparkles, Home, Shield } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useGlobalState } from '@/store'
 import { useIsMobile } from '@/hooks'
@@ -13,15 +13,12 @@ interface MainLayoutProps {
 export default function MainLayout({ children }: MainLayoutProps) {
     const navigate = useNavigate()
     const isMobile = useIsMobile()
-    const { isDark, toggleDark, settings, setJwt } = useGlobalState()
+    const { settings, setJwt } = useGlobalState()
 
     useEffect(() => {
-        if (isDark) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-    }, [isDark])
+        // 強制深色模式
+        document.documentElement.classList.add('dark')
+    }, [])
 
     const showAd = !isMobile && settings.ad_client && settings.ad_slot
 
@@ -44,11 +41,56 @@ export default function MainLayout({ children }: MainLayoutProps) {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-background via-muted/10 to-primary/5 text-foreground overflow-x-hidden selection:bg-primary/30">
-            {/* Mystical Background Decorations */}
+        <div className="min-h-screen text-foreground overflow-x-hidden selection:bg-primary/30 relative">
+
+            {/* ── 多層霧藍灰漸層背景 ── */}
+            <div
+                className="fixed inset-0 -z-20"
+                style={{
+                    background: `
+                        radial-gradient(ellipse 80% 60% at 20% 10%, hsl(205 35% 28% / 0.8) 0%, transparent 60%),
+                        radial-gradient(ellipse 60% 50% at 80% 80%, hsl(195 25% 24% / 0.7) 0%, transparent 55%),
+                        radial-gradient(ellipse 50% 40% at 60% 20%, hsl(40 20% 60% / 0.15) 0%, transparent 50%),
+                        linear-gradient(160deg, hsl(213 30% 14%) 0%, hsl(210 28% 20%) 40%, hsl(213 25% 17%) 100%)
+                    `
+                }}
+            />
+
+            {/* ── 光暈 blob ── */}
             <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-                <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] animate-pulse" />
-                <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
+                <div
+                    className="absolute animate-float"
+                    style={{
+                        top: '-5%', left: '10%',
+                        width: '520px', height: '520px',
+                        background: 'radial-gradient(circle, hsl(205 40% 50% / 0.12) 0%, transparent 70%)',
+                        borderRadius: '50%',
+                        filter: 'blur(40px)',
+                        animationDelay: '0s',
+                    }}
+                />
+                <div
+                    className="absolute animate-float"
+                    style={{
+                        bottom: '5%', right: '8%',
+                        width: '420px', height: '420px',
+                        background: 'radial-gradient(circle, hsl(195 30% 45% / 0.10) 0%, transparent 70%)',
+                        borderRadius: '50%',
+                        filter: 'blur(50px)',
+                        animationDelay: '2s',
+                    }}
+                />
+                <div
+                    className="absolute animate-float"
+                    style={{
+                        top: '40%', left: '55%',
+                        width: '300px', height: '300px',
+                        background: 'radial-gradient(circle, hsl(42 30% 65% / 0.07) 0%, transparent 70%)',
+                        borderRadius: '50%',
+                        filter: 'blur(60px)',
+                        animationDelay: '4s',
+                    }}
+                />
             </div>
 
             <div className="w-full px-4 md:px-8 py-4 md:py-6">
@@ -69,90 +111,104 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     )}
 
                     {/* Main Content Area */}
-                    <div className={`flex flex-col min-h-[calc(100vh-3rem)] ${showAd ? 'md:col-span-4' : 'md:col-span-6 md:px-12 lg:px-24'}`}>
+                    <div className={`flex flex-col min-h-[calc(100vh-3rem)] ${showAd ? 'md:col-span-4' : 'md:col-span-6 md:px-8 lg:px-20'}`}>
 
-                        {/* Header / Navigation */}
+                        {/* ── Header / Navigation ── */}
                         <motion.header
-                            initial={{ y: -20, opacity: 0 }}
+                            initial={{ y: -24, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
-                            transition={{ duration: 0.5 }}
-                            className="backdrop-blur-md bg-card/40 border border-white/10 rounded-2xl shadow-lg p-4 mb-6 sticky top-2 z-50"
+                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] as any }}
+                            className="tarot-card rounded-2xl p-4 mb-6 sticky top-2 z-50"
                         >
                             <div className="flex items-center justify-between">
-                                {/* Logo Area */}
-                                <Link to="/" className="flex items-center gap-2 group">
-                                    <div className="relative p-2 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                                        <Sparkles className="h-5 w-5 text-primary animate-pulse" />
-                                        <div className="absolute inset-0 blur-lg bg-primary/30 animate-pulse" />
+                                {/* Logo */}
+                                <Link to="/" className="flex items-center gap-3 group">
+                                    <div className="relative p-2 rounded-full border border-white/20 bg-white/5 group-hover:bg-white/10 transition-all duration-300">
+                                        <Sparkles className="h-4 w-4 text-slate-300 animate-pulse" />
                                     </div>
                                     <div>
-                                        <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary via-blue-400 to-secondary bg-clip-text text-transparent font-serif tracking-tight">
-                                            AI 占卜
-                                        </h1>
-                                        <p className="text-[10px] md:text-xs text-muted-foreground hidden sm:block">
-                                            探索未知 · 洞察未来
+                                        <div className="flex items-baseline gap-2">
+                                            <h1 className="text-lg md:text-xl font-cinzel font-bold text-gradient-frost tracking-wide">
+                                                AI TAROT
+                                            </h1>
+                                            <span className="text-xs text-slate-400 font-serif-tc tracking-widest hidden sm:inline">
+                                                AI 占卜
+                                            </span>
+                                        </div>
+                                        <p className="text-[9px] md:text-[10px] text-slate-500 hidden sm:block tracking-[0.2em] uppercase font-garamond">
+                                            Explore the unknown · Illuminate the future
                                         </p>
                                     </div>
                                 </Link>
 
                                 {/* Actions */}
-                                <div className="flex items-center gap-1 md:gap-2">
-                                    <Button variant="ghost" size="icon" onClick={() => navigate('/')} title="主页">
-                                        <Home className="h-5 w-5" />
+                                <div className="flex items-center gap-1 md:gap-1.5">
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        onClick={() => navigate('/')}
+                                        title="主頁"
+                                        className="text-slate-400 hover:text-slate-200 hover:bg-white/10 rounded-full border border-transparent hover:border-white/15 transition-all"
+                                    >
+                                        <Home className="h-4 w-4" />
                                     </Button>
 
                                     {settings.enable_login && (
                                         settings.user_name ? (
-                                            <Button variant="ghost" size="sm" onClick={logOut} className="gap-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10">
-                                                <LogOut className="h-4 w-4" />
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                onClick={logOut}
+                                                className="gap-2 text-slate-400 hover:text-red-300 hover:bg-red-900/20 rounded-full text-xs border border-transparent hover:border-red-400/20 transition-all"
+                                            >
+                                                <LogOut className="h-3.5 w-3.5" />
                                                 <span className="hidden sm:inline">登出</span>
                                             </Button>
                                         ) : (
-                                            <Button variant="default" size="sm" onClick={() => navigate('/login')} className="gap-2 bg-primary/80 hover:bg-primary">
-                                                <LogIn className="h-4 w-4" />
-                                                <span className="hidden sm:inline">登录</span>
+                                            <Button
+                                                size="sm"
+                                                onClick={() => navigate('/login')}
+                                                className="gap-2 rounded-full text-xs tarot-btn border-white/30"
+                                            >
+                                                <LogIn className="h-3.5 w-3.5" />
+                                                <span className="hidden sm:inline">登入</span>
                                             </Button>
                                         )
                                     )}
 
-                                    <Button variant="ghost" size="icon" onClick={() => navigate('/settings')} title="设置">
-                                        <Settings className="h-5 w-5" />
-                                    </Button>
-
-                                    <Button variant="ghost" size="icon" onClick={toggleDark} title="切换主题">
-                                        {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                                    </Button>
-
-                                    <Button variant="ghost" size="icon" asChild>
-                                        <a href="https://github.com/dreamhunter2333/chatgpt-tarot-divination" target="_blank" rel="noopener noreferrer">
-                                            <Github className="h-5 w-5" />
-                                        </a>
+                                    {/* 後台入口（低調隱藏） */}
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        onClick={() => navigate('/admin/login')}
+                                        title="後台管理"
+                                        className="text-slate-700 hover:text-slate-400 hover:bg-white/5 rounded-full border border-transparent hover:border-white/10 transition-all"
+                                    >
+                                        <Shield className="h-3.5 w-3.5" />
                                     </Button>
                                 </div>
                             </div>
 
-                            {/* Status Alert for Rate Limit / Login */}
+                            {/* Rate limit notice */}
                             <AnimatePresence>
-                                {settings.fetched && (
+                                {settings.fetched && !settings.user_name && settings.enable_rate_limit && (
                                     <motion.div
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: 'auto', opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}
                                         className="overflow-hidden"
                                     >
-                                        {!settings.user_name && settings.enable_rate_limit && (
-                                            <div className="mt-2 pt-2 border-t border-border/50">
-                                                <div className="flex items-center justify-between text-xs text-amber-500 bg-amber-500/10 px-3 py-1.5 rounded-md">
-                                                    <span className="flex items-center gap-2">
-                                                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                                                        游客限流模式 ({settings.rate_limit})
-                                                    </span>
-                                                    <Link to="/settings" className="hover:underline opacity-80 hover:opacity-100">
-                                                        自定义配置 &rarr;
-                                                    </Link>
-                                                </div>
+                                        <div className="mt-3 pt-3 border-t border-white/10">
+                                            <div className="flex items-center justify-between text-xs text-amber-400/80 bg-amber-900/20 border border-amber-400/20 px-3 py-1.5 rounded-full">
+                                                <span className="flex items-center gap-2">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                                                    訪客限流模式 ({settings.rate_limit})
+                                                </span>
+                                                <Link to="/admin/login" className="hover:underline opacity-70 hover:opacity-100 tracking-wider">
+                                                    管理員設定 →
+                                                </Link>
                                             </div>
-                                        )}
+                                        </div>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -161,18 +217,17 @@ export default function MainLayout({ children }: MainLayoutProps) {
                         {/* Page Content */}
                         <main className="flex-1 relative">
                             <AnimatePresence mode="wait">
-                                {/* 
-                    Ideally we would wrap children in a motion.div here keyed by location.pathname, 
-                    but since children is passed as prop, the animation needs to be handled 
-                    either in App.tsx or we accept that only inner content animates.
-                    For now, we just render children.
-                 */}
                                 {children}
                             </AnimatePresence>
                         </main>
 
-                        <footer className="mt-8 py-6 text-center text-sm text-muted-foreground border-t border-border/40">
-                            <p>© {new Date().getFullYear()} AI Tarot Divination. Keep an open mind.</p>
+                        <footer className="mt-8 py-6 text-center border-t border-white/10">
+                            <p className="text-xs text-slate-500 tracking-widest font-garamond">
+                                © {new Date().getFullYear()} &nbsp;AI TAROT DIVINATION&nbsp; · &nbsp;保持開放的心態
+                            </p>
+                            <p className="text-[10px] text-slate-600 mt-1 tracking-[0.3em] uppercase font-garamond">
+                                For entertainment purposes only
+                            </p>
                         </footer>
                     </div>
 
@@ -191,6 +246,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

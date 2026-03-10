@@ -2,9 +2,9 @@ from fastapi import HTTPException
 from src.models import DivinationBody
 from .base import DivinationFactory
 
-SYS_PROMPT = "我请求你担任中国传统的梅花易数占卜师的角色。" \
-    "我会随意说出两个数，第一个数取为上卦，第二个数取为下卦。" \
-    "请你直接以数起卦, 并向我解释结果"
+SYS_PROMPT = "我請求你擔任中國傳統梅花易數占卜師的角色。" \
+    "我會隨意說出兩個數字，第一個數字取為上卦，第二個數字取為下卦。" \
+    "請你直接以數起卦，並向我解釋結果。"
 
 
 class PlumFlowerFactory(DivinationFactory):

@@ -52,8 +52,8 @@ export default function SettingsPage() {
 
   return (
     <DivinationCardHeader
-      title="API 设置"
-      description="自定义您的 OpenAI API 配置"
+      title="API 設定"
+      description="自定義您的 OpenAI API 配置"
       icon={SettingsIcon}
     >
       <div className="w-full max-w-3xl mx-auto">
@@ -66,14 +66,14 @@ export default function SettingsPage() {
             {saved ? (
               <>
                 <CheckCircle2 className="h-4 w-4" />
-                已保存
+                已儲存
               </>
             ) : loading ? (
-              '保存中...'
+              '儲存中...'
             ) : (
               <>
                 <Save className="h-4 w-4" />
-                保存设置
+                儲存設定
               </>
             )}
           </Button>
@@ -83,7 +83,7 @@ export default function SettingsPage() {
           <Alert variant="success" className="animate-in slide-in-from-top duration-300 mb-4 md:mb-6">
             <AlertDescription className="flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4" />
-              设置已成功保存
+              設定已成功儲存
             </AlertDescription>
           </Alert>
         )}
@@ -91,7 +91,7 @@ export default function SettingsPage() {
         <div className="space-y-4 md:space-y-6">
           <div className="flex items-center justify-between p-3 md:p-4 rounded-lg border bg-muted/50">
             <div className="space-y-0.5">
-              <Label htmlFor="enable-custom" className="text-sm md:text-base font-medium">启用自定义 API</Label>
+              <Label htmlFor="enable-custom" className="text-sm md:text-base font-medium">啟用自定義 API</Label>
               <p className="text-xs md:text-sm text-muted-foreground">使用您自己的 API 配置</p>
             </div>
             <Switch

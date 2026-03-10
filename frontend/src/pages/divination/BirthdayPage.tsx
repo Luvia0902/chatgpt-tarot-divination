@@ -4,18 +4,18 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { DivinationCardHeader } from '@/components/DivinationCardHeader'
-import { ResultDrawer } from '@/components/ResultDrawer'
+import { InlineResult } from '@/components/divination/InlineResult'
 import { useDivination } from '@/hooks/useDivination'
 import { useLocalStorage } from '@/hooks'
 import { getDivinationOption } from '@/config/constants'
-import { Sparkles, Eye, Loader2 } from 'lucide-react'
+import { Sparkles, Loader2, Calendar } from 'lucide-react'
 
 const CONFIG = getDivinationOption('birthday')!
 
 export default function BirthdayPage() {
   const [birthday, setBirthday] = useLocalStorage('birthday', '2000-08-17T00:00')
   const [lunarBirthday, setLunarBirthday] = useState('')
-  const { result, loading, resultLoading, streaming, showDrawer, setShowDrawer, onSubmit } =
+  const { result, loading, resultLoading, streaming, onSubmit } =
     useDivination('birthday')
 
   const computeLunarBirthday = (birthdayStr: string) => {
@@ -32,7 +32,7 @@ export default function BirthdayPage() {
       setLunarBirthday(solar.getLunar().toFullString())
     } catch (error) {
       console.error(error)
-      setLunarBirthday('转换失败')
+      setLunarBirthday('轉換失敗')
     }
   }
 
@@ -41,7 +41,6 @@ export default function BirthdayPage() {
   }, [birthday])
 
   const handleSubmit = () => {
-    // 将日期格式从 ISO 格式转换为后端期望的格式
     const date = new Date(birthday)
     const formattedBirthday = date.getFullYear() + '-' +
       String(date.getMonth() + 1).padStart(2, '0') + '-' +
@@ -63,60 +62,53 @@ export default function BirthdayPage() {
       icon={CONFIG.icon}
       divinationType="birthday"
     >
-      <div className="max-w-2xl mx-auto">
-        <div className="space-y-4">
-          <div>
-            <Label className="block mb-2">生日</Label>
+      <div className="max-w-2xl mx-auto pb-12 space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-900/40 p-6 rounded-2xl border border-white/5 backdrop-blur-sm">
+          <div className="space-y-3">
+            <Label className="text-primary/70 tracking-widest flex items-center gap-2">
+              <Calendar className="h-4 w-4" /> 國曆生日
+            </Label>
             <Input
               type="datetime-local"
               value={birthday}
               onChange={(e) => setBirthday(e.target.value)}
-              className="w-auto inline-block"
+              className="bg-slate-900/50 border-white/10 text-slate-200 focus:border-primary/50"
             />
           </div>
-          <div>
-            <Label>农历</Label>
-            <p className="text-sm mt-2 text-foreground/80">{lunarBirthday}</p>
+          <div className="space-y-3">
+            <Label className="text-primary/70 tracking-widest">農曆批命</Label>
+            <div className="h-10 flex items-center px-3 rounded-md bg-slate-900/50 border border-white/5 text-slate-200 font-serif-tc">
+              {lunarBirthday}
+            </div>
           </div>
         </div>
 
-        <div className="flex gap-2 md:gap-3 justify-center pt-4 md:pt-6">
-          <Button
-            onClick={() => setShowDrawer(!showDrawer)}
-            variant="outline"
-            className="gap-2 flex-1 md:flex-initial md:min-w-[140px]"
-            disabled={!result}
-          >
-            <Eye className="h-4 w-4" />
-            查看结果
-          </Button>
+        <div className="flex justify-center">
           <Button
             onClick={handleSubmit}
             disabled={loading}
-            className="gap-2 flex-1 md:flex-initial md:min-w-[140px] bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+            className="w-full md:w-auto md:min-w-[200px] h-11 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-500 border-none text-white rounded-full shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-105"
           >
             {loading ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                占卜中
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                命盤解析中
               </>
             ) : (
               <>
-                <Sparkles className="h-4 w-4" />
-                开始占卜
+                <Sparkles className="h-4 w-4 mr-2" />
+                解析八字命理
               </>
             )}
           </Button>
         </div>
-      </div>
 
-      <ResultDrawer
-        show={showDrawer}
-        onClose={() => setShowDrawer(false)}
-        result={result}
-        loading={resultLoading}
-        streaming={streaming}
-      />
+        <InlineResult
+          result={result}
+          loading={resultLoading}
+          streaming={streaming}
+        />
+      </div>
     </DivinationCardHeader>
   )
 }

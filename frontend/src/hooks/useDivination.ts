@@ -38,7 +38,7 @@ export function useDivination(promptType: string) {
         headers['x-api-url'] = customOpenAISettings.baseUrl
         headers['x-api-model'] = customOpenAISettings.model
       } else if (IS_TAURI) {
-        setResult('请在设置中配置 API BASE URL 和 API KEY')
+        setResult('請在設定中配置 API BASE URL 和 API KEY')
         setResultLoading(false)
         return
       }
@@ -82,7 +82,7 @@ export function useDivination(promptType: string) {
         },
         onclose() {
           setStreaming(false)
-          // 保存历史记录（仅当有结果时）
+          // 保存歷史記錄（僅當有結果時）
           if (tmpResultBuffer && promptType) {
             const config = getDivinationOption(promptType)
             if (config) {

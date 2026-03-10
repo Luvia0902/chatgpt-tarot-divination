@@ -4,7 +4,6 @@ import { Toaster } from '@/components/ui/sonner'
 import { useGlobalState } from '@/store'
 import MarketPage from '@/pages/Market'
 import AboutPage from '@/pages/About'
-import SettingsPage from '@/pages/Settings'
 import LoginPage from '@/pages/Login'
 import HistoryPage from '@/pages/History'
 import TarotPage from '@/pages/divination/TarotPage'
@@ -14,7 +13,9 @@ import NamePage from '@/pages/divination/NamePage'
 import DreamPage from '@/pages/divination/DreamPage'
 import PlumFlowerPage from '@/pages/divination/PlumFlowerPage'
 import FatePage from '@/pages/divination/FatePage'
-import { Alert, AlertDescription } from '@/components/ui/alert'
+import UnicornPage from '@/pages/divination/UnicornPage'
+import AdminLoginPage from '@/pages/admin/AdminLoginPage'
+import AdminPanel from '@/pages/admin/AdminPanel'
 import { Sparkles } from 'lucide-react'
 import MainLayout from '@/layouts/MainLayout'
 
@@ -80,29 +81,36 @@ function App() {
         </div>
       )}
 
-      <MainLayout>
-        {settings.fetched && !settings.error ? (
-          <Routes>
-            <Route path="/" element={<MarketPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/divination/tarot" element={<TarotPage />} />
-            <Route path="/divination/birthday" element={<BirthdayPage />} />
-            <Route path="/divination/new_name" element={<NewNamePage />} />
-            <Route path="/divination/name" element={<NamePage />} />
-            <Route path="/divination/dream" element={<DreamPage />} />
-            <Route path="/divination/plum_flower" element={<PlumFlowerPage />} />
-            <Route path="/divination/fate" element={<FatePage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/login/:login_type" element={<LoginPage />} />
-            <Route path="/history/:type" element={<HistoryPage />} />
-          </Routes>
-        ) : settings.error ? (
-          <Alert variant="destructive" className="glass">
-            <AlertDescription>{settings.error}</AlertDescription>
-          </Alert>
-        ) : null}
-      </MainLayout>
+      {/* ── 後台路由（不套用 MainLayout） ── */}
+      <Routes>
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/admin/*" element={<AdminPanel />} />
+
+        {/* ── 前台路由（套用 MainLayout） ── */}
+        <Route path="/*" element={
+          <MainLayout>
+            {settings.fetched ? (
+              <Routes>
+                <Route path="/" element={<MarketPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/divination/tarot" element={<TarotPage />} />
+                <Route path="/divination/birthday" element={<BirthdayPage />} />
+                <Route path="/divination/new_name" element={<NewNamePage />} />
+                <Route path="/divination/name" element={<NamePage />} />
+                <Route path="/divination/dream" element={<DreamPage />} />
+                <Route path="/divination/plum_flower" element={<PlumFlowerPage />} />
+                <Route path="/divination/fate" element={<FatePage />} />
+                <Route path="/divination/unicorn" element={<UnicornPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/login/:login_type" element={<LoginPage />} />
+                <Route path="/history/:type" element={<HistoryPage />} />
+              </Routes>
+            ) : null}
+          </MainLayout>
+        } />
+      </Routes>
+
       <Toaster />
     </>
   )

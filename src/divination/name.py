@@ -2,10 +2,10 @@ from fastapi import HTTPException
 from src.models import DivinationBody
 from .base import DivinationFactory
 
-NAME_PROMPT = "我请求你担任中国传统的姓名五格算命师的角色。" \
-    "我将会给你我的名字，请你根据我的名字推算，" \
+NAME_PROMPT = "我請求你擔任中國傳統姓名五格算命師的角色。" \
+    "我將會提供我的名字，請你根據我的名字推算，" \
     "分析姓氏格、名字格、和自己格。" \
-    "并为其提供相应的指导和建议。"
+    "並為其提供相應的指導和建議。"
 
 
 class NameFactory(DivinationFactory):

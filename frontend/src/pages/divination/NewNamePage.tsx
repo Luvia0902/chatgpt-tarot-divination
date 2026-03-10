@@ -5,11 +5,11 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { DivinationCardHeader } from '@/components/DivinationCardHeader'
-import { ResultDrawer } from '@/components/ResultDrawer'
+import { InlineResult } from '@/components/divination/InlineResult'
 import { useDivination } from '@/hooks/useDivination'
 import { useLocalStorage } from '@/hooks'
 import { getDivinationOption } from '@/config/constants'
-import { Sparkles, Eye, Loader2 } from 'lucide-react'
+import { Sparkles, Loader2, Baby, Calendar, UserCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 const CONFIG = getDivinationOption('new_name')!
@@ -20,7 +20,7 @@ export default function NewNamePage() {
   const [surname, setSurname] = useState('')
   const [newNamePrompt, setNewNamePrompt] = useState('')
   const [lunarBirthday, setLunarBirthday] = useState('')
-  const { result, loading, resultLoading, streaming, showDrawer, setShowDrawer, onSubmit } =
+  const { result, loading, resultLoading, streaming, onSubmit } =
     useDivination('new_name')
 
   const computeLunarBirthday = (birthdayStr: string) => {
@@ -37,7 +37,7 @@ export default function NewNamePage() {
       setLunarBirthday(solar.getLunar().toFullString())
     } catch (error) {
       console.error(error)
-      setLunarBirthday('转换失败')
+      setLunarBirthday('轉換失敗')
     }
   }
 
@@ -46,13 +46,11 @@ export default function NewNamePage() {
   }, [birthday])
 
   const handleSubmit = () => {
-    // 验证必填字段
     if (!surname || !sex) {
-      toast.error('请填写姓氏和性别')
+      toast.error('請填寫姓氏和性別')
       return
     }
 
-    // 将日期格式从 ISO 格式转换为后端期望的格式
     const date = new Date(birthday)
     const formattedBirthday = date.getFullYear() + '-' +
       String(date.getMonth() + 1).padStart(2, '0') + '-' +
@@ -63,7 +61,7 @@ export default function NewNamePage() {
 
     onSubmit({
       prompt: `${surname} ${sex} ${formattedBirthday}`,
-      birthday: formattedBirthday,  // 添加顶层 birthday 字段
+      birthday: formattedBirthday,
       new_name: {
         surname,
         sex,
@@ -80,89 +78,92 @@ export default function NewNamePage() {
       icon={CONFIG.icon}
       divinationType="new_name"
     >
-      <div className="max-w-2xl mx-auto">
-        <div className="space-y-4">
-          <div>
-            <Label>姓氏</Label>
-            <Input
-              value={surname}
-              onChange={(e) => setSurname(e.target.value)}
-              placeholder="请输入姓氏"
-              maxLength={2}
-              className="mt-2"
-            />
+      <div className="max-w-2xl mx-auto pb-12 space-y-8">
+        <div className="bg-slate-900/40 p-8 rounded-3xl border border-white/5 backdrop-blur-sm space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <Label className="text-primary/70 tracking-widest flex items-center gap-2">
+                <UserCircle className="h-4 w-4" /> 姓氏
+              </Label>
+              <Input
+                value={surname}
+                onChange={(e) => setSurname(e.target.value)}
+                placeholder="請輸入姓氏"
+                maxLength={2}
+                className="bg-slate-900/50 border-white/10 text-slate-200 focus:border-primary/50 h-11"
+              />
+            </div>
+            <div className="space-y-3">
+              <Label className="text-primary/70 tracking-widest flex items-center gap-2">
+                性格性別
+              </Label>
+              <Select value={sex} onValueChange={setSex}>
+                <SelectTrigger className="bg-slate-900/50 border-white/10 text-slate-200 focus:border-primary/50 h-11">
+                  <SelectValue placeholder="請選擇性別" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="男">男</SelectItem>
+                  <SelectItem value="女">女</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
-          <div>
-            <Label>性别</Label>
-            <Select value={sex} onValueChange={setSex}>
-              <SelectTrigger className="mt-2">
-                <SelectValue placeholder="请选择性别" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="男">男</SelectItem>
-                <SelectItem value="女">女</SelectItem>
-              </SelectContent>
-            </Select>
+
+          <div className="space-y-3">
+            <Label className="text-primary/70 tracking-widest flex items-center gap-2">
+              <Calendar className="h-4 w-4" /> 出生日期與時間
+            </Label>
+            <div className="flex flex-col md:flex-row gap-4 items-center">
+              <Input
+                type="datetime-local"
+                value={birthday}
+                onChange={(e) => setBirthday(e.target.value)}
+                className="bg-slate-900/50 border-white/10 text-slate-200 focus:border-primary/50 h-11"
+              />
+              <span className="text-xs text-slate-500 font-serif-tc shrink-0">農曆：{lunarBirthday}</span>
+            </div>
           </div>
-          <div>
-            <Label className="block mb-2">生日</Label>
-            <Input
-              type="datetime-local"
-              value={birthday}
-              onChange={(e) => setBirthday(e.target.value)}
-              className="w-auto inline-block"
-            />
-          </div>
-          <div>
-            <Label>附加要求</Label>
+
+          <div className="space-y-3">
+            <Label className="text-primary/70 tracking-widest flex items-center gap-2">
+              <Baby className="h-4 w-4" /> 附加要求（如：五行喜水、寓意高遠）
+            </Label>
             <Input
               value={newNamePrompt}
               onChange={(e) => setNewNamePrompt(e.target.value)}
-              maxLength={20}
-              placeholder="例如：希望名字带水"
-              className="mt-2"
+              maxLength={40}
+              placeholder="例如：希望名字帶水，或者避開某些字"
+              className="bg-slate-900/50 border-white/10 text-slate-200 focus:border-primary/50 h-11"
             />
           </div>
-          <p className="text-sm text-muted-foreground">农历: {lunarBirthday}</p>
         </div>
 
-        <div className="flex gap-2 md:gap-3 justify-center pt-4 md:pt-6">
-          <Button
-            onClick={() => setShowDrawer(!showDrawer)}
-            variant="outline"
-            className="gap-2 flex-1 md:flex-initial md:min-w-[140px]"
-            disabled={!result}
-          >
-            <Eye className="h-4 w-4" />
-            查看结果
-          </Button>
+        <div className="flex justify-center">
           <Button
             onClick={handleSubmit}
             disabled={loading}
-            className="gap-2 flex-1 md:flex-initial md:min-w-[140px] bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+            className="w-full md:w-auto md:min-w-[200px] h-11 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 border-none text-white rounded-full shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-105"
           >
             {loading ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                占卜中
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                文曲星感應中
               </>
             ) : (
               <>
-                <Sparkles className="h-4 w-4" />
-                开始占卜
+                <Sparkles className="h-4 w-4 mr-2" />
+                開啟好名分析
               </>
             )}
           </Button>
         </div>
-      </div>
 
-      <ResultDrawer
-        show={showDrawer}
-        onClose={() => setShowDrawer(false)}
-        result={result}
-        loading={resultLoading}
-        streaming={streaming}
-      />
+        <InlineResult
+          result={result}
+          loading={resultLoading}
+          streaming={streaming}
+        />
+      </div>
     </DivinationCardHeader>
   )
 }

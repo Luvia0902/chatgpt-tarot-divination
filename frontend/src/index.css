@@ -4,67 +4,62 @@
 
 @layer base {
   :root {
-    --background: 220 40% 98%;
-    /* Light Blueish White */
-    --foreground: 222.2 84% 4.9%;
+    /* ── 霧藍灰塔羅牌美學（淺色模式） ── */
+    --background: 210 25% 92%;
+    --foreground: 215 20% 20%;
 
-    /* Mystic Blue Primary (Vibrant Blue) */
-    --primary: 221.2 83.2% 53.3%;
+    --primary: 210 30% 52%;
     --primary-foreground: 210 40% 98%;
 
-    /* Ethereal Cyan/Gold Secondary */
-    --secondary: 190 90% 50%;
-    /* Cyan/Teal accent */
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 200 25% 65%;
+    --secondary-foreground: 215 20% 20%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --card: 210 30% 96%;
+    --card-foreground: 215 20% 20%;
+    --popover: 210 30% 96%;
+    --popover-foreground: 215 20% 20%;
 
-    --muted: 220 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 20% 88%;
+    --muted-foreground: 215 15% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 195 25% 80%;
+    --accent-foreground: 215 20% 20%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 60% 55%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --border: 210 20% 78%;
+    --input: 210 20% 78%;
+    --ring: 210 30% 52%;
     --radius: 1rem;
   }
 
   .dark {
-    /* Deep Cosmic Blue Background */
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* ── 深宇宙石板（深色模式）—— 接近設計圖主色調 ── */
+    --background: 213 30% 16%;
+    --foreground: 210 30% 90%;
 
-    --card: 222.2 84% 8%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --card: 213 28% 20%;
+    --card-foreground: 210 30% 90%;
+    --popover: 213 30% 14%;
+    --popover-foreground: 210 30% 90%;
 
-    /* Glowing Blue Primary */
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 205 35% 68%;
+    --primary-foreground: 213 30% 12%;
 
-    /* Cyan Secondary */
-    --secondary: 190 80% 60%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 195 28% 58%;
+    --secondary-foreground: 210 30% 90%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --muted: 213 22% 25%;
+    --muted-foreground: 210 20% 60%;
+    --accent: 213 22% 28%;
+    --accent-foreground: 210 30% 90%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --destructive: 0 60% 42%;
+    --destructive-foreground: 210 30% 90%;
+    --border: 213 22% 30%;
+    --input: 213 22% 30%;
+    --ring: 205 35% 60%;
   }
 }
 
@@ -75,7 +70,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Serif TC', 'Cormorant Garamond', serif;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
@@ -85,35 +80,108 @@
   h4,
   h5,
   h6 {
-    @apply font-sans;
-    /* Revert to sans-serif if Cinzel is not desired */
+    font-family: 'Noto Serif TC', serif;
+    letter-spacing: 0.04em;
   }
 }
 
+/* ══ 裝飾性背景噪點 ══ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.035;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
 @layer utilities {
-  .animate-in {
-    animation-name: enter;
-    animation-duration: 0.5s;
-    animation-timing-function: ease-out;
-  }
 
-  .fade-in {
-    animation-name: fadeIn;
-  }
-
-  /* Glassmorphism utility */
+  /* ── Glassmorphism 基礎 ── */
   .glass {
-    @apply backdrop-blur-md bg-opacity-30 border border-white/10 shadow-lg;
+    @apply backdrop-blur-md bg-white/10 border border-white/20 shadow-lg;
   }
 
-  /* Text gradient utility */
-  .text-gradient-gold {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200;
+  /* ── 塔羅牌拱形卡片 ── */
+  .tarot-card {
+    @apply relative overflow-hidden;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .tarot-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    border-radius: 0 0 50% 50%;
+  }
+
+  /* ── 拱形頂部形狀 ── */
+  .arch-top {
+    clip-path: ellipse(50% 55% at 50% 45%);
+  }
+
+  /* ── 點線裝飾框 ── */
+  .dotted-deco {
+    border: 1px dashed rgba(255, 255, 255, 0.25);
+    @apply rounded-2xl;
+  }
+
+  /* ── 膠囊形塔羅按鈕 ── */
+  .tarot-btn {
+    @apply rounded-full px-6 py-2.5 text-sm tracking-widest transition-all duration-300;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.15em;
+  }
+
+  .tarot-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+
+  /* ── 裝飾星符 ✳ ── */
+  .star-deco::before,
+  .star-deco::after {
+    content: '✳';
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin: 0 0.5rem;
+  }
+
+  /* ── 文字漸層 ── */
+  .text-gradient-frost {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #d4e6f0 0%, #e8f0f5 50%, #c8dde9 100%);
   }
 
   .text-gradient-mystic {
-    /* Blue to Cyan Gradient */
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #a8c8d8 0%, #d0e4ee 60%, #a0bece 100%);
+  }
+
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-200;
+  }
+
+  /* ── 英文大字間距 ── */
+  .tracking-arcane {
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
   }
 
   .scrollbar-hide {
@@ -124,17 +192,33 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* ── 點狀分隔線 ── */
+  .dot-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .dot-divider::before,
+  .dot-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  }
 }
 
+/* ══ 動畫 ══ */
 @keyframes enter {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.97) translateY(8px);
   }
 
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -145,5 +229,75 @@
 
   to {
     opacity: 1;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glimmer {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@layer utilities {
+  .animate-in {
+    animation: enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-out both;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glimmer {
+    animation: glimmer 3s ease-in-out infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+  }
+
+  /* 3D Card Flip Utilities */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 }

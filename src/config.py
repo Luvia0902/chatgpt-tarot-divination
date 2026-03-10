@@ -30,6 +30,7 @@ class Settings(BaseSettings):
     default_api_base: str = "https://api.openai.com/v1"
     default_model: str = "gpt-3.5-turbo"
     purchase_url: str = ""
+    admin_password: str = Field(default="1234567890", exclude=True)
 
     # cache settings
     cache_client_type: str = "memory"

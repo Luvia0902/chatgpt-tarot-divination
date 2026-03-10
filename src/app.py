@@ -9,6 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from src.limiter import get_real_ipaddr
 from src.chatgpt_router import router as chatgpt_router
 from src.user_router import router as user_router
+from src.admin_router import router as admin_router
 
 
 _logger = logging.getLogger(__name__)
@@ -24,10 +25,17 @@ app.add_middleware(
 
 app.include_router(chatgpt_router)
 app.include_router(user_router)
+app.include_router(admin_router)
 
 if os.path.exists("dist"):
     @app.get("/")
-    @app.get("/login/{path}")
+    @app.get("/login/{path:path}")
+    @app.get("/admin/{path:path}")
+    @app.get("/admin")
+    @app.get("/history")
+    @app.get("/settings")
+    @app.get("/about")
+    @app.get("/market")
     async def read_index(request: Request):
         _logger.info(f"Request from {get_real_ipaddr(request)}")
         return FileResponse(
