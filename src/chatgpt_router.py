@@ -13,7 +13,7 @@ from src.user import get_user
 from src.limiter import get_real_ipaddr, check_rate_limit
 from src.divination import DivinationFactory
 
-router = APIRouter()
+router = APIRouter(prefix="/api", tags=["Divination"])
 _logger = logging.getLogger(__name__)
 
 STOP_WORDS = [
@@ -21,7 +21,7 @@ STOP_WORDS = [
     "遵守", "遵循"
 ]
 
-@router.post("/api/divination")
+@router.post("/divination")
 async def divination(
     request: Request,
     divination_body: DivinationBody,
@@ -76,7 +76,7 @@ async def divination(
         model_name = request.headers.get("x-api-model") or settings.model
         # Auto-correct legacy or unavailable model names
         if any(x in model_name for x in ["gpt-", "gemini-1.5", "gemini-2.0-flash"]):
-            model_name = "gemini-2.5-flash"
+            model_name = "gemini-2.0-flash"
             
         model = genai.GenerativeModel(
             model_name=model_name,

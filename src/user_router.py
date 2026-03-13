@@ -11,7 +11,7 @@ from src.config import settings
 from src.models import OauthBody, SettingsInfo, User
 from src.user import get_user
 
-router = APIRouter()
+router = APIRouter(prefix="/api/v1", tags=["User"])
 _logger = logging.getLogger(__name__)
 
 GITHUB_URL = "https://github.com/login/oauth/authorize?" \
@@ -23,7 +23,7 @@ GITHUB_TOEKN_URL = "https://github.com/login/oauth/access_token" \
 GITHUB_USER_URL = "https://api.github.com/user"
 
 
-@router.get("/api/v1/settings", tags=["User"])
+@router.get("/settings")
 async def info(user: Optional[User] = Depends(get_user)):
     return SettingsInfo(
         login_type=user.login_type if user else "",
@@ -40,7 +40,7 @@ async def info(user: Optional[User] = Depends(get_user)):
     )
 
 
-@router.get("/api/v1/login", tags=["User"])
+@router.get("/login")
 async def login(login_type: str, redirect_url: str):
     if login_type == "github":
         return f"{GITHUB_URL}&redirect_uri={redirect_url}"
@@ -50,7 +50,7 @@ async def login(login_type: str, redirect_url: str):
     )
 
 
-@router.post("/api/v1/oauth", tags=["User"])
+@router.post("/oauth")
 async def oauth(oauth_body: OauthBody):
     if oauth_body.login_type == "github" and oauth_body.code:
         async with httpx.AsyncClient() as client:
