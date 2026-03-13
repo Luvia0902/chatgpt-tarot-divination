@@ -62,10 +62,10 @@ async def divination(
     # API configuration
     custom_api_key = request.headers.get("x-api-key") or settings.api_key
     
-    if not custom_api_key or custom_api_key == "sk-dummy-key-for-ui-testing":
+    if not custom_api_key or custom_api_key.startswith("sk-dummy"):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="請在設定中配置正確的 Google API Key"
+            detail="請在管理介面或 .env 中配置正確的 Google API Key"
         )
 
     try:

@@ -75,7 +75,7 @@ export default function HistoryPage() {
     if (hours < 24) return `${hours} 小時前`
     if (days < 7) return `${days} 天前`
 
-    return date.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+    return date.toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
   }
 
   return (

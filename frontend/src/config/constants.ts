@@ -77,7 +77,7 @@ export const DIVINATION_OPTIONS: DivinationOption[] = [
   },
 ] as const
 
-// 根据 key 获取占卜选项的辅助函数
+// 根據 key 獲取占卜選項的輔助函數
 export function getDivinationOption(key: string): DivinationOption | undefined {
   return DIVINATION_OPTIONS.find((option) => option.key === key)
 }

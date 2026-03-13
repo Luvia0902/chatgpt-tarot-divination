@@ -19,5 +19,5 @@ class BirthdayFactory(DivinationFactory):
         birthday = datetime.datetime.strptime(
             birthday, '%Y-%m-%d %H:%M:%S'
         )
-        prompt = f"我的生日是{birthday.year}年{birthday.month}月{birthday.day}日{birthday.hour}时{birthday.minute}分{birthday.second}秒"
+        prompt = f"我的生日是{birthday.year}年{birthday.month}月{birthday.day}日{birthday.hour}時{birthday.minute}分{birthday.second}秒"
         return prompt, BIRTHDAY_PROMPT

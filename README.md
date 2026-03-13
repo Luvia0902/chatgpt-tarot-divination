@@ -1,6 +1,6 @@
-# AI 占卜 - ChatGPT Tarot Divination
+# AI 占卜 - Diverse Divination (Gemini Edition)
 
-基於 ChatGPT 的 AI 算命、占卜應用程式，支援多種占卜方式，提供串流輸出體驗與歷史紀錄管理。
+基於 Google Gemini 的 AI 算命、占卜應用程式，支援多種占卜方式，提供串流輸出體驗與歷史紀錄管理。
 
 ![demo](assets/demo.png)
 
@@ -34,9 +34,9 @@
    [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FLuvia0902%2Fchatgpt-tarot-divination&env=api_key,api_base&project-name=ai-divination&repository-name=ai-divination&demo-title=AI%20Divination&demo-description=AI%20Divination)
 
 2. 在部署時設定環境變數：
-   - `api_key`：必填，你的 OpenAI API Key
-   - `api_base`：選填，API 網址（預設為 OpenAI 官方網址）
-   - 其他選填參數：`model`、`github_client_id`、`github_client_secret` 等
+   - `api_key`：必填，你的 Google API Key (Gemini)
+   - `api_base`：選填，API 網址（預設為 Google AI 官方網址）
+   - 其他選填參數：`model` (建議 `gemini-2.0-flash`)、`github_client_id`、`github_client_secret` 等
 
 3. 部署完成後，Vercel 會自動分配一個專屬網域
 
@@ -47,8 +47,8 @@
 1. [點擊下載 EXE 安裝檔](https://github.com/Luvia0902/chatgpt-tarot-divination/releases/tag/latest)
 2. 安裝並執行程式
 3. 在設定中配置：
-   - API BASE URL（OpenAI API 網址）
-   - API KEY（你的 API 金鑰）
+   - API BASE URL (建議保持預設或使用 Google API 代理)
+   - API KEY (你的 Google API 金鑰)
 4. 返回首頁即可開始使用
 
 ### 方式三：Docker 部署
@@ -64,11 +64,11 @@ services:
     ports:
       - 8000:8000
     environment:
-      - api_key=sk-xxx                       # 必填：OpenAI API Key
-      # - api_base=https://api.openai.com/v1 # 選填：API 網址
-      # - model=gpt-3.5-turbo                # 選填：模型名稱
-      # - rate_limit=10/minute               # 選填：速率限制
-      # - user_rate_limit=600/hour           # 選填：使用者速率限制
+      - api_key=AIzaSy...                       # 必填：Google API Key
+      # - api_base=https://generativelanguage.googleapis.com # 選填：API 網址
+      # - model=gemini-2.0-flash                 # 選填：模型名稱
+      # - rate_limit=60/hour                     # 選填：速率限制
+      # - user_rate_limit=600/hour               # 選填：使用者速率限制
       - github_client_id=xxx                 # 選填：GitHub OAuth
       - github_client_secret=xxx             # 選填：GitHub OAuth
       - jwt_secret=secret                    # 選填：JWT 金鑰
@@ -93,11 +93,11 @@ docker-compose up -d
 
 **步驟**：
 
-1. **建立設定檔** - 在專案根目錄建立 `.env` 檔案：
+1. **建立設定檔** - 在專案根目錄建立 `.env` 檔案（可參考 `.env.example`）：
 
 ```bash
-api_key=sk-xxxx                         # 必填：OpenAI API Key
-api_base=https://api.openai.com/v1      # 選填：API 網址
+api_key=AIzaSy...                         # 必填：Google API Key
+api_base=https://generativelanguage.googleapis.com # 選填：API 網址
 github_client_id=xxx                    # 選填：GitHub OAuth
 github_client_secret=xxx                # 選填：GitHub OAuth
 ad_client=ca-pub-xxx                    # 選填：廣告客戶端

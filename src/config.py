@@ -12,10 +12,10 @@ class Settings(BaseSettings):
     # project settings
     project_name: str = "ai-divination"
 
-    # OpenAI API settings
+    # Google Gemini API settings
     api_key: str = Field(default="", exclude=True)
-    api_base: str = "https://api.openai.com/v1"
-    model: str = "gpt-3.5-turbo"
+    api_base: str = "https://generativelanguage.googleapis.com"
+    model: str = "gemini-2.0-flash"
 
     # github oauth login settings
     github_client_id: str = ""
@@ -26,9 +26,9 @@ class Settings(BaseSettings):
     ad_client: str = ""
     ad_slot: str = ""
 
-    # openai settings defaults
-    default_api_base: str = "https://api.openai.com/v1"
-    default_model: str = "gpt-3.5-turbo"
+    # Gemini settings defaults
+    default_api_base: str = "https://generativelanguage.googleapis.com"
+    default_model: str = "gemini-2.0-flash"
     purchase_url: str = ""
     admin_password: str = Field(default="1234567890", exclude=True)
 

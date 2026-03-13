@@ -101,7 +101,7 @@ export default function LoginPage() {
                 <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary/20 border-t-primary"></div>
                 <Github className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-7 w-7 text-primary animate-pulse" />
               </div>
-              <p className="text-sm font-medium text-muted-foreground">正在登錄...</p>
+              <p className="text-sm font-medium text-muted-foreground">正在登入...</p>
             </div>
           )}
 
